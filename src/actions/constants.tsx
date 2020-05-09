@@ -24,6 +24,7 @@ export interface Item {
     text: string;
 // itemId: number;
     type: ItemType;
+    done: boolean;
 //  creationDate
 //  expireDate
 //  checkDate

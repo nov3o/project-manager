@@ -47,15 +47,20 @@ function addItem (state = initialItemState, action: ActionTypes): ItemsState {
                     text: action.payload.text,
                     type: action.payload.type,
                     // itemId: action.payload.itemId,
+                    done: false
                 }
             ]}
         case TOGGLE_ITEM:
             return { items:
                     state.items.map((item, index) => {
-                        if (index === action.payload.index) {
-                            return Object.assign({}, todo, {
-                                completed: !todo.completed
+                        if (index === action.payload) {
+                            return Object.assign({}, item, {
+                                done: !item.done,
+                                text: item.text,
+                                type: item.type
                             })
+                        } else {
+                            return Object.assign({}, item, item)
                         }
                     }
                     )
