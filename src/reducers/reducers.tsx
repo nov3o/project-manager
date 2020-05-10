@@ -1,33 +1,20 @@
-import { ActionTypes }  from "../actions/actions"
+import { combineReducers } from 'redux'
+
+import {ActionTypes} from "../actions/actions"
+import {ADD_PROJECT, ADD_TASK, SWITCH_THEME, TOGGLE_PROJECT, TOGGLE_TASK, VISIBILITY} from "../actions/constants"
 import {
-    ADD_ITEM, SWITCH_THEME, TOGGLE_ITEM, VISIBILITY, Item, VisibilityFilters, Themes
-}  from "../actions/constants"
+    initialProjectsState,
+    initialTasksState,
+    initialThemeState,
+    initialVisibilityState,
+    ProjectsState,
+    TasksState,
+    ThemeState,
+    VisibilityState,
+} from "../reducers/states"
 
 
-interface ItemsState {
-    items: Item[];
-}
-
-var initialItemState: ItemsState  = { items: [] };
-
-interface VisibilityState {
-    visibility: VisibilityFilters;
-}
-
-var initialVisibilityState = {
-    visibility: VisibilityFilters.All
-}
-
-interface ThemeState {
-    theme: Themes;
-}
-
-var initialThemeState = {
-    theme: Themes.Light
-}
-
-
-function filter (state = initialVisibilityState, action: ActionTypes): VisibilityState {
+function visibilityReducer(state = initialVisibilityState, action: ActionTypes): VisibilityState {
     switch (action.type) {
         case VISIBILITY:
             return {
@@ -38,39 +25,76 @@ function filter (state = initialVisibilityState, action: ActionTypes): Visibilit
     }
 }
 
-function addItem (state = initialItemState, action: ActionTypes): ItemsState {
+function projectsReducer(state = initialProjectsState, action: ActionTypes): ProjectsState {
     switch (action.type) {
-        case ADD_ITEM:
-            return { items: [
-                ...state.items,
+        case ADD_PROJECT:
+            return { projects: [
+                ...state.projects,
                 {
-                    text: action.payload.text,
-                    type: action.payload.type,
-                    // itemId: action.payload.itemId,
-                    done: false
+                    text: action.payload,
+                    done: false,
+                    creationDate: new Date(),
+                    doneDate: new Date(0)
                 }
             ]}
-        case TOGGLE_ITEM:
-            return { items:
-                    state.items.map((item, index) => {
-                        if (index === action.payload) {
-                            return Object.assign({}, item, {
-                                done: !item.done,
-                                text: item.text,
-                                type: item.type
-                            })
-                        } else {
-                            return Object.assign({}, item, item)
-                        }
+        case TOGGLE_PROJECT:
+            return { projects:
+                state.projects.map((proj, index) => {
+                    if (index === action.payload) {
+                        return Object.assign({}, proj, {
+                            done: !proj.done,
+                            text: proj.text,
+                            creationDate: proj.creationDate,
+                            doneDate: proj.doneDate
+                        })
                     }
-                    )
+                    return Object.assign({}, proj, proj)
+                })
             }
         default:
             return state
     }
 }
 
-function changeTheme (state = initialThemeState, action: ActionTypes): ThemeState {
+function tasksReducer(state = initialTasksState, action: ActionTypes): TasksState {
+    switch (action.type) {
+        case ADD_TASK:
+            return {
+                tasks: [
+                    ...state.tasks,
+                    {
+                        done: false,
+                        creationDate: new Date(),
+                        doneDate: new Date(0),
+                        text: action.payload.text,
+                    }
+                ],
+                projNum: action.payload.proj
+            }
+        case TOGGLE_TASK:
+            return {
+                tasks:
+                    state.tasks.map((task, index) => {
+                            if (index === action.payload.task) {
+                                return Object.assign({}, task, {
+                                    done: !task.done,
+                                    text: task.text,
+                                    creationDate: task.creationDate,
+                                    doneDate: task.doneDate
+                                })
+                            }
+                            return Object.assign({}, task, task)
+                        }
+                    ),
+                // Probably, action.payload.proj should be removed
+                projNum: state.projNum
+            }
+        default:
+            return state
+    }
+}
+
+function themeReducer(state: ThemeState = initialThemeState, action: ActionTypes): ThemeState {
     switch (action.type) {
         case SWITCH_THEME:
             return {
@@ -80,3 +104,12 @@ function changeTheme (state = initialThemeState, action: ActionTypes): ThemeStat
             return state
     }
 }
+
+
+export const rootReducer = combineReducers({
+    visibility: visibilityReducer,
+    projects: projectsReducer,
+    theme: themeReducer
+})
+
+export type RootState = ReturnType<typeof rootReducer>

@@ -1,29 +1,45 @@
 import { ActionTypes } from "./actions";
-import { ADD_ITEM, ItemType, VisibilityFilters, VISIBILITY, TOGGLE_ITEM, SWITCH_THEME } from "./constants"
+import { ADD_TASK, ADD_PROJECT, TOGGLE_TASK, TOGGLE_PROJECT, VISIBILITY, SWITCH_THEME, VisibilityFilters, Themes } from "./constants"
 
 
-export function addItem(text: string, type: ItemType): ActionTypes {
+export  function addProj(text: string): ActionTypes {
     return {
-        type: ADD_ITEM,
-        payload: {
-            text,
-            type,
-            // itemId
-        }
-    };
+        type: ADD_PROJECT,
+        payload: text
+    }
 }
 
-export function toggleItem(index: number): ActionTypes{
+export function addTask(txt: string, projNum: number): ActionTypes {
     return {
-        type: TOGGLE_ITEM,
+        type: ADD_TASK,
+        payload: {
+            text: txt,
+            proj: projNum
+        }
+    }
+}
+
+export function toggleProj(index: number): ActionTypes {
+    return {
+        type: TOGGLE_PROJECT,
         payload: index
     }
 }
 
-export function switchTheme(themeNumber: number): ActionTypes{
+export function toggleTask(taskNum: number, projNum: number): ActionTypes {
+    return {
+        type: TOGGLE_TASK,
+        payload: {
+            task: taskNum,
+            proj: projNum
+        }
+    }
+}
+
+export function switchTheme(theme: Themes): ActionTypes{
     return {
         type: SWITCH_THEME,
-        payload: themeNumber
+        payload: theme
     }
 }
 

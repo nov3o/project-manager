@@ -1,36 +1,56 @@
 import {
-    SWITCH_THEME, ADD_ITEM, TOGGLE_ITEM, VISIBILITY, VisibilityFilters, Themes, Item, ItemType
+    SWITCH_THEME, ADD_PROJECT, ADD_TASK, TOGGLE_PROJECT, TOGGLE_TASK,
+    VISIBILITY, VisibilityFilters, Themes, Project, Task
 } from "./constants";
 
 
-export interface AddItemPayload {
+interface AddProjectAction {
+    type: typeof ADD_PROJECT;
+    payload: string;
+}
+
+
+interface AddTaskPayload {
     text: string;
-// itemId: number;
-    type: ItemType;
+    proj: number;
 }
 
-export interface AddItemAction {
-    type: typeof ADD_ITEM;
-    payload: AddItemPayload;
+interface AddTaskAction {
+    type: typeof ADD_TASK;
+    payload: AddTaskPayload;
 }
 
 
-export interface ToggleItemAction {
-    type: typeof TOGGLE_ITEM;
+interface ToggleProjectAction {
+    type: typeof TOGGLE_PROJECT;
     payload: number;
 }
 
 
-export interface FilterAction {
+interface ToggleTaskPayload {
+    proj: number;
+    task: number;
+}
+
+interface ToggleTaskAction {
+    type: typeof TOGGLE_TASK;
+    payload: ToggleTaskPayload;
+}
+
+
+interface FilterAction {
     type: typeof VISIBILITY;
     payload: VisibilityFilters;
 }
 
 
-export interface SwitchThemeAction {
+interface SwitchThemeAction {
     type: typeof SWITCH_THEME;
     payload: Themes;
 }
 
 
-export type ActionTypes = FilterAction | ToggleItemAction | AddItemAction | SwitchThemeAction;
+export type ActionTypes = (
+    AddProjectAction | AddTaskAction | ToggleProjectAction |
+    ToggleTaskAction | FilterAction | SwitchThemeAction
+    );
