@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React  from 'react';
 
 
-interface ProjectProps {
-    // onChange: () => void,
+export interface ProjectProps {
+    onChange: () => void,
     text: string,
     done: boolean,
     creationDate: Date,
@@ -18,7 +18,7 @@ export function ProjElement(props: ProjectProps): JSX.Element {
                 <input
                     type="checkbox"
                     defaultChecked={props.done}
-                    // onChange={(_e) => props.onChange}
+                    onChange={(_e) => props.onChange}
                 ></input>
                 <span>{props.text}</span>
                 {/*<span>{props.expireDate}</span>*/}

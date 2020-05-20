@@ -2,13 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { VisibilityFilters } from '../actions/constants'
 
 
-interface VisibilityProps {
+export interface VisibilityProps {
     onChange: () => void,
     filter: VisibilityFilters,
 }
 
 
-function VisibilityElement(props: VisibilityProps): JSX.Element {
+export function VisibilityElement(props: VisibilityProps): JSX.Element {
     const options: JSX.Element[] = [];
 
     for( let i of Object.keys(VisibilityFilters)){

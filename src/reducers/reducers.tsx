@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
 
 import {ActionTypes} from "../actions/actions"
-import {ADD_PROJECT, ADD_TASK, SWITCH_THEME, TOGGLE_PROJECT, TOGGLE_TASK, VISIBILITY} from "../actions/constants"
+import {
+    ADD_PROJECT, ADD_TASK, SWITCH_THEME, TOGGLE_PROJECT, TOGGLE_TASK, VISIBILITY
+} from "../actions/constants"
 import {
     initialProjectsState,
     initialTasksState,
@@ -34,7 +36,8 @@ function projectsReducer(state = initialProjectsState, action: ActionTypes): Pro
                     text: action.payload,
                     done: false,
                     creationDate: new Date(),
-                    doneDate: new Date(0)
+                    doneDate: new Date(0),
+                    onChange: () => { return }
                 }
             ]}
         case TOGGLE_PROJECT:

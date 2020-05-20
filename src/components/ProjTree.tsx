@@ -1,18 +1,31 @@
-import React, { FunctionComponent } from 'react';
+import React, {Component} from 'react';
 import { Project } from '../actions/constants'
 import { ProjElement } from './Project'
+import {ProjectsState} from "../reducers/states";
 
 
-function ProjTreeElement(projects: Project[]): JSX.Element {
-    const projectsList: JSX.Element[] = [];
+interface ProjProps {
+    projects: Project[]
+}
 
-    for( let prj of projects ){
-        projectsList.push(ProjElement(prj));
+class ProjTreeElement extends Component<ProjProps, ProjectsState> {
+    constructor(props: ProjProps) {
+        super(props);
     }
 
-    return (
-        <ul>
-            {projectsList}
-        </ul>
-    )
+    render(): JSX.Element {
+        const projectsList: JSX.Element[] = [];
+
+        for (let prj of this.props.projects) {
+            projectsList.push(ProjElement(prj));
+        }
+
+        return (
+            <ul>
+                {projectsList}
+            </ul>
+        )
+    }
 }
+
+export default ProjTreeElement;

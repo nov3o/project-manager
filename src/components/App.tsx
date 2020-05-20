@@ -1,13 +1,13 @@
-// import React from 'react';
-// import { ProjTree } from './ProjTree';
-// import Item from './Item';
-// import Theme from './Theme';
-// import Visibility from './Visibility';
+import React from 'react'
+import AddProj from '../containers/AddProj'
+import VisibleProjects from '../containers/VisibleProjects'
 
-// function App() {
-//     return (
-//         <h1>test</h1>
-//     )
-// }
-//
-// export default App;
+const App = () => (
+    <div>
+        <AddProj />
+        <VisibleProjects />
+        {/*<h1>Test</h1>*/}
+    </div>
+)
+
+export default App

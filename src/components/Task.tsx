@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 
-interface TaskProps {
+export interface TaskProps {
     onChange: () => void,
     text: string,
     isdone: boolean,
@@ -10,7 +10,7 @@ interface TaskProps {
     doneDate: Date
 }
 
-const TaskElement: FunctionComponent<TaskProps> = (props: TaskProps) => (
+export const TaskElement: FunctionComponent<TaskProps> = (props: TaskProps) => (
     <li>
         <p>
             <input

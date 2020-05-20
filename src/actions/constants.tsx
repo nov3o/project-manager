@@ -18,6 +18,7 @@ export enum Themes {
 }
 
 export interface Project {
+    onChange: () => void,
     text: string;
     done: boolean;
     creationDate: Date;

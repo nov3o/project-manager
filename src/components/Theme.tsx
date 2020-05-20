@@ -2,14 +2,13 @@ import React, { FunctionComponent } from 'react';
 import { Themes } from '../actions/constants'
 
 
-
-interface ThemeProps {
+export interface ThemeProps {
     onChange: () => void,
     theme: Themes,
 }
 
 
-function ThemeElement(props: ThemeProps): JSX.Element {
+export function ThemeElement(props: ThemeProps): JSX.Element {
     const options: JSX.Element[] = [];
 
     for( let i of Object.keys(Themes)){
